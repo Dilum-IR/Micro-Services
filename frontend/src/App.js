@@ -12,7 +12,7 @@ function App() {
   const navigate = useNavigate();
   //localStorage.clear('type');
   var user = localStorage.getItem("type");
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     if (user) {
       navigate("/home");
@@ -20,7 +20,7 @@ function App() {
       navigate("");
     }
   }, [user]);
-  console.log(useSelector((state) => state.UserReducer.user));
+  // console.log(useSelector((state) => state.UserReducer.user));
   return (
     <div className="appContainer">
       <div className="sidebar">

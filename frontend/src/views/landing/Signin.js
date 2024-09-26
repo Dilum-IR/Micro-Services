@@ -18,7 +18,7 @@ export default function Signin() {
   const dispatch = useDispatch();
 
   const showToast = (data) => {
-    console.log("showToast :" + data);
+    // console.log("showToast :" + data);
 
     if (data.type == "success") {
       ToastMessages.success(data.message);
@@ -57,18 +57,15 @@ export default function Signin() {
         email: email,
         password: password,
       }).then((response) => {
-        console.log("response.data", response.data);
-        console.log("type", response.data.type);
-
         if (response.data.type == "success") {
-          console.log(response.data.user);
+          // console.log(response.data.user);
 
           if (response.data.user) {
-            console.log(response.data.user);
+            // console.log(response.data.user);
 
             dispatch(SetUserAction(response.data.user));
             dispatch(SetUserId(response.data.id));
-            localStorage.setItem("user_id", response.data.user_id);
+            localStorage.setItem("user_id", response.data.id);
             navigate("/home");
           } else {
             showToast(response.data);

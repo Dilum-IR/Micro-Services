@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 // const {INSERT, UPDATE, SELECT, DELETE} = require('./queries');
 // Create a connection pool to the MySQL database
 // INSERT('asdsa');
@@ -6,7 +6,7 @@ const pool = mysql.createPool({
 	// Adjust this value based on your requirements
 	host: 'localhost',
 	user: 'root',
-	password: '',
+	password: 'Dilu123',
 	database: 'sritel_bill',
 });
 async function INSERT(table, columns, values) {
@@ -94,6 +94,7 @@ async function QUERY(query) {
 			connection.query(query, (err, result, fields) => {
 				connection.release();
 				if (err) {
+					console.log(err);
 					resolve('error');
 				} else {
 					resolve(JSON.parse(JSON.stringify(result)));

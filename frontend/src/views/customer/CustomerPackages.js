@@ -5,9 +5,12 @@ import PackageCard from "../../componets/PackageCard";
 import { Axios_packages, Axios_bill } from "../../api/Axios";
 import * as API_ENDPOINTS from "../../api/ApiEndpoints";
 import StripeCard from "../../componets/StripeCard";
+import * as ToastMessages from "../../componets/ToastMessages";
+import Toast from "../../componets/Toast";
 import { useSelector } from "react-redux";
 export default function CustomerPackages() {
-  const userid = useSelector((state) => state.UserReducer.userid);
+  const userid = localStorage.getItem("user_id");
+  // const userid = useSelector((state) => state.UserReducer.id);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [checked, setChecked] = useState("All");
   const [packages, setPackages] = useState("");
@@ -28,7 +31,7 @@ export default function CustomerPackages() {
   useEffect(() => {
     try {
       Axios_packages.get(API_ENDPOINTS.GET_ALL_PACKAGES).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setPackages(response.data);
         setAllPackages(response.data);
       });
@@ -68,7 +71,10 @@ export default function CustomerPackages() {
         user: userid,
         amount: price,
       }).then((response) => {
-        console.log(response);
+
+        if (response.data == "success") {
+          ToastMessages.success("Package added to bill");
+        }
       });
     });
   };
@@ -217,6 +223,7 @@ export default function CustomerPackages() {
 					<></>
 				)} */}
       </div>
+      <Toast duration={3000} />
     </div>
   );
 }
