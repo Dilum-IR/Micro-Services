@@ -1,1 +1,0 @@
-import {router as paymentRouter} from './index.js';
