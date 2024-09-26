@@ -56,7 +56,7 @@ export default function AdminPackages() {
             className="adminPackages"
             style={{
                 width: "100%",
-                height: "100%",
+                paddingTop: "18px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -200,6 +200,8 @@ export default function AdminPackages() {
                     alignItems: "flex-start",
                     overflow: "hidden",
                     tableLayout: "fixed",
+                    boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)",
+                    paddingTop: "10px",
                 }}
             >
                 <table class="admin-styled-table">
@@ -232,13 +234,35 @@ export default function AdminPackages() {
                                         <center>
                                             <button
                                                 style={{
-                                                    height: "30px",
-                                                    width: "120px",
-                                                    background: "yellow",
-                                                    border: "none",
+                                                    height: "40px",
+                                                    width: "150px",
+                                                    backgroundColor: "#f0c14b", // Softer yellow background
+                                                    border: "1px solid #a88734", // Subtle border for contrast
                                                     borderRadius: "7px",
                                                     cursor: "pointer",
-                                                }}
+                                                    fontSize: "16px", // Larger font size for readability
+                                                    color: "#333", // Darker text for contrast
+                                                    
+                                                    transition: "background-color 0.3s ease, transform 0.2s ease", // Smooth hover transition
+                                                  }}
+                                                  onMouseOver={(e) => {
+                                                    e.target.style.backgroundColor = "#ddb347"; // Darker yellow on hover
+                                                    e.target.style.transform = "translateY(-3px)"; // Slight lift on hover
+                                                    e.target.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)"; // Add shadow on hover
+                                                  }}
+                                                  onMouseOut={(e) => {
+                                                    e.target.style.backgroundColor = "#f0c14b"; // Revert to original color
+                                                    e.target.style.transform = "translateY(0px)"; // Remove lift
+                                                    e.target.style.boxShadow = "none"; // Remove shadow
+                                                  }}
+                                                  onMouseDown={(e) => {
+                                                    e.target.style.backgroundColor = "#c2922b"; // Darker yellow when clicked
+                                                    e.target.style.transform = "translateY(1px)"; // Pressed effect
+                                                  }}
+                                                  onMouseUp={(e) => {
+                                                    e.target.style.backgroundColor = "#ddb347"; // Revert hover color on mouse release
+                                                    e.target.style.transform = "translateY(-3px)"; // Back to hover lift
+                                                  }}
                                             >
                                                 View
                                             </button>
