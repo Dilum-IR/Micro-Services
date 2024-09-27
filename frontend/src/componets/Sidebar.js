@@ -66,7 +66,7 @@ const ShowSidebar = (props) => {
     // {id: 1, icon: <HomeIcon sx={{fontSize: 40, fill: '#6F767F'}} />, label: 'Home', link: 'home', index: '1'},
     {
       id: 1,
-      icon: <InventoryIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faSimCard} sx={{width: "90px" ,fill: "#FFD43B"}} />,
       label: "Packages",
       link: "home",
       index: "1",
