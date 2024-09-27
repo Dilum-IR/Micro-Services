@@ -236,4 +236,32 @@ router.post("/addstaff", async (req, res) => {
   });
 });
 
+router.post("/updatecustomer", async (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const contact_no = req.body.contact_no;
+  const customer_id = req.body.id;
+  const state = req.body.state;
+
+  try {
+    QUERY(
+      "UPDATE user SET name='" +
+        name +
+        "', email='" +
+        email +
+        "', contact_no='" +
+        contact_no +
+        "', state='"+
+        state +
+        "' WHERE id='" +
+        customer_id +
+        "'"
+    ).then((response) => {
+      res.send({ type: "success", message: "Customer updated successfully" });
+    });
+  } catch (error) {
+    console.error("Error executing query:", error);
+  }
+})
+
 module.exports = router;
