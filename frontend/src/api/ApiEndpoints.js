@@ -6,6 +6,7 @@ export const VERIFY_USER_URL = '/api/verifyuser';
 export const ADD_PACKAGE_URL = '/api/addpackage'
 export const GET_CUSTOMERS_URL = '/api/customers'
 export const ADD_CUSTOMER_URL = '/api/addcustomer'
+export const UPDATE_CUSTOMER_URL = '/api/updatecustomer'
 
 export const GET_ALL_PACKAGES = '/api/getallpackages';
 export const PAYMENT = '/api/payment';

@@ -13,17 +13,31 @@ export default function AdminPackages() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [users, setUsers] = useState('');
+    const [state, setState]  = useState('');
+    const [dataToView, setDataToView] = useState(null);
+    const [customerId, setCustomerId] = useState(null);
+    const [needReRender, setNeedReRender] = useState(false);
+    
+
+    const [isViewModelVisible, setIsViewModelVisible] = useState(false);
+    const [showCustomerIndex, setShowCustomerIndex] = useState(0);
 
 	let index = 0;
-
-	
 
       useEffect(() => {
         Axios_user.get(API_ENDPOINTS.GET_CUSTOMERS_URL).then((response) => {
           setUsers(response.data);
           console.log(response.data);
         });
-      }, []); 
+      }, [needReRender]);
+
+      useEffect(() => {
+        setName(dataToView?.name);
+        setContact(dataToView?.contact_no);
+        setEmail(dataToView?.email);
+        setState(dataToView?.state);
+        setCustomerId(dataToView?.id);
+      }, [dataToView]);
 
 	const handleSubmit = () => {
         Axios_user.post(API_ENDPOINTS.ADD_CUSTOMER_URL, {
@@ -34,6 +48,19 @@ export default function AdminPackages() {
         }).then((response) => {
 			console.log(response);
 			closeModal();
+        });
+    };
+
+    const handleUpdateSubmit = () => {
+        Axios_user.post(API_ENDPOINTS.UPDATE_CUSTOMER_URL, {
+            name: name,
+            email: email,
+            contact_no: contact,
+            state: state,
+            id: customerId,
+        }).then((response) => {
+            console.log(response);
+            closeViewModel();
         });
     };
 
@@ -52,7 +79,18 @@ export default function AdminPackages() {
 		setContact("");
 		setEmail("");
 		setPassword("");
+        setNeedReRender(!needReRender);
 	};
+    const closeViewModel = () => {
+        setIsViewModelVisible(!setIsViewModelVisible);
+        setName('');
+		setContact("");
+		setEmail("");
+        setState("");
+        setDataToView(null);
+        setCustomerId(null);
+        setNeedReRender(!needReRender);
+    };
 	return (
         <div
             className="adminPackages"
@@ -190,6 +228,114 @@ export default function AdminPackages() {
                 </Box>
             </Modal>
 
+            <Modal
+                onClose={closeViewModel}
+                open={isViewModelVisible}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div
+                        style={{
+                            backgroundColor: "white",
+                            width: "40vw",
+                            height: "40vw",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            paddingTop: "50px",
+                        }}
+                    >
+                        <div
+                            className="addNewPackageTitle"
+                            style={{
+                                display: "flex",
+                                height: "7%",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "20px",
+                                paddingBottom: "25px",
+                            }}
+                        >
+                            Customer Details Form
+                        </div>
+                        <div
+                            className="adminPackagerow"
+                            style={{
+                                marginTop: "-20px",
+                            }}
+                        >
+                            <input
+                                placeholder="Name*"
+                                className="adminPackageInput"
+                                type="text"
+                                onChange={(event) =>
+                                    setName(event.target.value)
+                                }
+                                value={name}
+                                required
+                            ></input>
+                            {/* <label className='adminPackagePlaceholder'>User name*</label> */}
+                        </div>
+
+                        <div className="adminPackagerow">
+                            <input
+                                placeholder="Email*"
+                                className="adminPackageInput"
+                                type="email"
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
+                                value={email}
+                                required
+                            ></input>
+                            {/* <label className='adminPackagePlaceholder'>Price*</label> */}
+                        </div>
+
+                        <div className="adminPackagerow">
+                            <input
+                                placeholder="Contact Number*"
+                                className="adminPackageInput"
+                                type="text"
+                                onChange={(event) =>
+                                    setContact(event.target.value)
+                                }
+                                value={contact}
+                                required
+                            ></input>
+                            {/* <label className='adminPackagePlaceholder'>Price*</label> */}
+                        </div>
+
+                        <div className="adminPackagerow">
+                        <select
+                            style={{width: "100%"}}
+                            className="adminPackageInput"
+                            onChange={(event) => setState(event.target.value)}
+                            value={state}
+                            required
+                        >
+                            <option value="verified">verified</option>
+                            <option value="unverified">unverified</option>
+                        </select>
+                            {/* <label className='adminPackagePlaceholder'>Price*</label> */}
+                        </div>
+
+                        <div
+                            className="adminPackageAddButton"
+                            style={{
+                                height: "10%",
+                                width: "40%",
+                                color: "white",
+                                marginTop: "40px",
+                            }}
+                            onClick={handleUpdateSubmit}
+                        >
+                            Update
+                        </div>
+                    </div>
+                </Box>
+            </Modal>
+
             {/* ====================================================================== */}
             {/* ====================================================================== */}
             <div
@@ -219,7 +365,9 @@ export default function AdminPackages() {
                     <tbody>
                         {users &&
                             users.map((element) => (
+                                
                                 <tr class="active-row">
+                                    
                                     <td>{element.name}</td>
                                     <td>
                                         {element.contact_no
@@ -265,6 +413,11 @@ export default function AdminPackages() {
                                                     e.target.style.backgroundColor = "#ddb347"; // Revert hover color on mouse release
                                                     e.target.style.transform = "translateY(-3px)"; // Back to hover lift
                                                   }}
+                                                  onClick={() => {
+                                                    setIsViewModelVisible(!isViewModelVisible); // Toggle modal visibility
+                                                    console.log("Selected element:", element); // Log the selected element
+                                                    setDataToView(element); // Set the clicked element into state
+                                                }}
                                             >
                                                 View
                                             </button>
