@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Axios_packages } from "../../api/Axios";
+import { Axios_packages,Axios_notifications } from "../../api/Axios";
 import * as API_ENDPOINTS from "../../api/ApiEndpoints";
 export default function AdminPackages() {
   const [details, setDetails] = useState([]);
@@ -34,9 +34,14 @@ export default function AdminPackages() {
       sms: smsLimit,
       type,
       price,
-    })
-      .then(() => {
+    }).then((res) => {
         closeModal();
+        Axios_notifications.post(API_ENDPOINTS.ADD_NOTIFICATION, {
+          name,
+          description,
+          type:"New Package",
+        });
+        getPackageDetails();
       })
       .catch((error) => {
         console.error("Error adding package:", error);
@@ -52,11 +57,11 @@ export default function AdminPackages() {
     setPrice("");
   };
 
+  async function getPackageDetails() {
+    const res = await Axios_packages.get(API_ENDPOINTS.GET_PACKAGE_URL);
+    setDetails(res.data);
+  }
   useEffect(() => {
-    async function getPackageDetails() {
-      const res = await Axios_packages.get(API_ENDPOINTS.GET_PACKAGE_URL);
-      setDetails(res.data);
-    }
     getPackageDetails();
   }, []);
 

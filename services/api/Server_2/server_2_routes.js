@@ -14,44 +14,50 @@ const axios = require("axios");
 router.post("/addpackage", async (req, res) => {
   const PK_name = req.body.name;
   const PK_des = req.body.description;
-  const PK_data = req.query.data;
+  const PK_data = req.body.data;
   const PK_voice = req.body.voice;
   const PK_sms = req.body.sms;
   const PK_price = req.body.price;
   const PK_type = req.body.type;
-  console.log(PK_data);
+
+  // Handle invalid values
+  const dataLimit = isNaN(parseFloat(PK_data)) ? 0 : parseFloat(PK_data);
+  const voiceLimit = isNaN(parseInt(PK_voice)) ? 0 : parseInt(PK_voice);
+  const smsLimit = isNaN(parseInt(PK_sms)) ? 0 : parseInt(PK_sms);
+  const price = isNaN(parseInt(PK_price)) ? 0 : parseInt(PK_price);
+
   QUERY(
-    "INSERT INTO package(name,description,type,data_limit,voice_limit,sms_limit,price) VALUES('" +
+    "INSERT INTO package(name,description,type,data_limit,voice_limit,sms_limit,price) VALUES ('" +
       PK_name +
       "','" +
       PK_des +
       "','" +
       PK_type +
       "','" +
-      parseFloat(PK_data) +
+      dataLimit +
       "','" +
-      parseInt(PK_voice) +
+      voiceLimit +
       "','" +
-      parseInt(PK_sms) +
+      smsLimit +
       "','" +
-      parseInt(PK_price) +
+      price +
       "')"
-  ).then((response) => {
-  
-    res.send("success");
-  });
+  );
 
   const userResponse = await axios.get("http://localhost:5001/api/customers");
   const users = userResponse.data;
 
-  console.log(users);
-
-  return;
-  
   for (const user of users) {
-    const emailResponse = await SendMail(otp, user.email);
+    await SendMail(2, "", user.email, [
+      PK_name,
+      PK_des,
+      PK_type,
+      dataLimit,
+      voiceLimit,
+      smsLimit,
+      price,
+    ]);
   }
-
   res.send({
     type: "success",
     message: "Package added and notifications sent to users",

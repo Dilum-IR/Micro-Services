@@ -1,10 +1,8 @@
-import React from 'react';
+import React , { useEffect, useState } from 'react';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SecurityIcon from '@mui/icons-material/Security';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import { randomCreatedDate, randomUpdatedDate } from '@mui/x-data-grid-generator';
-
+import EyeIcon from '@mui/icons-material/RemoveRedEye';
+import {Axios_notifications } from "../../api/Axios";
+import * as API_ENDPOINTS from "../../api/ApiEndpoints";
 const initialRows = [
   {
     id: 1,
@@ -21,7 +19,25 @@ const initialRows = [
 ];
 
 export default function StaffNotification() {
-  const [rows, setRows] = React.useState(initialRows);
+  const [rows, setRows] = useState(initialRows);
+
+  async function getPackageDetails() {
+    const res = await Axios_notifications.get(API_ENDPOINTS.GET_NOTIFICATION);
+    console.log(res.data);
+    const rows = [];
+    
+  for (const item of res.data) {
+    rows.push({
+      id: item.id,
+      Notification: `${item.type} | ${item.Notification} | Date : ${item.issued_date}`,
+    });
+  }
+    setRows(rows);
+  }
+  useEffect(() => {
+    getPackageDetails();
+  }, []);
+
 
   const deleteUser = React.useCallback(
     (id) => () => {
@@ -34,14 +50,14 @@ export default function StaffNotification() {
 
   const columns = React.useMemo(
     () => [
-      { field: 'Notification', type: 'string', flex: 3 }, // 75% width
+      { field: 'Notification', type: 'string', flex: 3 },
       {
         field: 'actions',
         type: 'actions',
         flex: 1, // 25% width
         getActions: (params) => [
           <GridActionsCellItem
-            icon={<DeleteIcon />}
+            icon={<EyeIcon />}
             label="Delete"
             onClick={deleteUser(params.id)}
           />,
