@@ -8,9 +8,10 @@ const {
 } = require("../../models/Server_2_DB");
 const express = require("express");
 const router = express.Router();
+const { SendMail } = require("../../include/NodemailerConfig");
+const axios = require("axios");
 
-
-router.post("/addpackage", (req, res) => {
+router.post("/addpackage", async (req, res) => {
   const PK_name = req.body.name;
   const PK_des = req.body.description;
   const PK_data = req.query.data;
@@ -36,18 +37,32 @@ router.post("/addpackage", (req, res) => {
       parseInt(PK_price) +
       "')"
   ).then((response) => {
-    console.log(response);
+  
     res.send("success");
   });
-});
 
+  const userResponse = await axios.get("http://localhost:5001/api/customers");
+  const users = userResponse.data;
+
+  console.log(users);
+
+  return;
+  
+  for (const user of users) {
+    const emailResponse = await SendMail(otp, user.email);
+  }
+
+  res.send({
+    type: "success",
+    message: "Package added and notifications sent to users",
+  });
+});
 
 router.get("/getallpackages", (req, res) => {
   QUERY("SELECT * FROM package").then((response) => {
     res.send(response);
   });
 });
-
 
 router.post("/activatepackage", async (req, res) => {
   let { user, id } = req.body;

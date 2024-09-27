@@ -53,7 +53,7 @@ export default function StaffNotification() {
 
   return (
     <div style={{ width: '95%', padding: '16px' }}>
-      <h1>Staff Notification</h1>
+      <h1>Notifications</h1>
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid columns={columns} rows={rows} />
       </div>
