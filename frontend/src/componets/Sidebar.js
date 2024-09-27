@@ -50,6 +50,13 @@ const ShowSidebar = (props) => {
       index: "1",
     },
     {
+      id: 4,
+      icon: <NotificationsIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      label: "Notifications",
+      link: "notifications",
+      index: "4",
+    },
+    {
       id: 3,
       icon: <LogoutIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
       label: "Logout",
@@ -74,12 +81,20 @@ const ShowSidebar = (props) => {
       index: "2",
     },
     {
+      id: 4,
+      icon: <NotificationsIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      label: "Notifications",
+      link: "notifications",
+      index: "4",
+    },
+    {
       id: 3,
       icon: <LogoutIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
       label: "Logout",
       link: "logout",
       index: "3",
     },
+    
   ];
   const staff = [
     // {id: 1, icon: <HomeIcon sx={{fontSize: 40, fill: '#6F767F'}} />, label: 'Home', link: 'home', index: '1'},
@@ -98,19 +113,19 @@ const ShowSidebar = (props) => {
       index: "2",
     },
     {
+      id: 4,
+      icon: <NotificationsIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      label: "Notifications",
+      link: "notifications",
+      index: "4",
+    },
+    {
       id: 3,
       icon: <LogoutIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
       label: "Logout",
       link: "logout",
       index: "3",
     },
-    {
-      id: 4,
-      icon: <NotificationsIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
-      label: "Notifications",
-      link: "notifications",
-      index: "4",
-    }
   ];
   //console.log(restaurant[0].icon.props.sx.fontSize)
   const navigateTo = (page, index) => {
