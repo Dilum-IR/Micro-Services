@@ -7,14 +7,14 @@ const CARD_OPTIONS = {
 	iconStyle: 'solid',
 	style: {
 		base: {
-			iconColor: '#c4f0ff',
-			color: '#fff',
+			iconColor: '#e6e9ec',
+			color: '#deded5',
 			fontWeight: 500,
 			fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
 			fontSize: '16px',
 			fontSmoothing: 'antialiased',
-			':-webkit-autofill': {color: '#fce883'},
-			'::placeholder': {color: '#87bbfd'},
+			':-webkit-autofill': {color: '#4b4105'},
+			'::placeholder': {color: '#e6e9ec'},
 		},
 		invalid: {
 			iconColor: '#ffc7ee',
@@ -72,17 +72,32 @@ export default function PaymentForm(props) {
 							<CardElement options={CARD_OPTIONS} />
 						</div>
 					</fieldset>
-					<button
-						style={{
-							width: '15%',
-							height: '40%',
-							backgroundColor: 'dodgerblue',
-							outline: '3px solid white',
-							color: 'white',
-						}}
-					>
-						Pay
-					</button>
+					<div style={
+						{
+							width: '80%',
+							height: '120%',
+							paddingLeft: '45%',
+							borderRadius:'10px'
+						}
+					}>
+						<button
+							style={{
+								width: '15%',
+								height: '40%',
+								backgroundColor: '#009879',
+								outline: '3px solid white',
+								color: 'white',
+								fontSize:'1.3em',
+								fontWeight:'bold',
+								borderRadius:'10px',
+								borderColor:'#b5b9b6',
+								cursor:'pointer'
+							}}
+						>
+							Pay
+						</button>
+					</div>
+
 				</form>
 			) : (
 				<div>

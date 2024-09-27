@@ -57,12 +57,9 @@ export default function CustomerPackages() {
     //console.log(name);
     setChecked(name);
   };
-  const openModal = (id, price) => {
-    setId(id);
-    setAmount(price);
-    setIsModalVisible(!isModalVisible);
-  };
+
   const addToBill = (id, price) => {
+
     Axios_packages.post(API_ENDPOINTS.ACTIVATE_PACKAGE, {
       user: userid,
       id: id,
@@ -87,6 +84,13 @@ export default function CustomerPackages() {
     bgcolor: "background.paper",
     boxShadow: 24,
   };
+
+  const openModal = (id, price) => {
+    setId(id);
+    setAmount(price);
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
     <div
       style={{
@@ -203,7 +207,14 @@ export default function CustomerPackages() {
                 justifyContent: "center",
               }}
             >
-              <div className="processingtext">
+              <div className="processingtext"
+                style={{
+                  display:"flex",
+                  justifyContent:"center",
+                  flexDirection:"row",
+                  margin:"3%"
+                }}
+              >
                 Processing <span className="rstext">RS.{amount}</span>
               </div>
               <StripeCard amount={amount} id={id} />
@@ -226,4 +237,6 @@ export default function CustomerPackages() {
       <Toast duration={3000} />
     </div>
   );
+
+
 }

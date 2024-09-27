@@ -11,6 +11,9 @@ const router = express.Router();
 router.post("/addtobill", (req, res) => {
   let { user, amount } = req.body;
 
+  console.log("User id check "+user);
+  console.log("package price cjeck "+amount);
+
   QUERY(
     "INSERT INTO bill_table(user_id,amount,is_payed) VALUES('" +
       user +
