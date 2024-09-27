@@ -27,6 +27,7 @@ export default function Signup() {
     }
   };
   const handleSubmit = (e) => {
+    
     localStorage.setItem("otpemail", email);
     //e.preventDefault();
     var isClean = true;
@@ -52,14 +53,14 @@ export default function Signup() {
         isClean = false;
       }
     }
-
+    
     if (isClean) {
       try {
         Axios_user.post(API_ENDPOINTS.SIGNUP_URL, {
           email: email,
           password: password,
         }).then((response) => {
-          //console.log(response.data.message);
+          // console.log(response.data.message);
           showToast(response.data);
         });
       } catch (error) {

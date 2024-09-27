@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
-import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
-import {Axios_payments, Axios_packages} from '../api/Axios';
-import * as API_ENDPOINTS from '../api/ApiEndpoints';
-import {useSelector} from 'react-redux';
+import React, { useState } from "react";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { Axios_payments, Axios_packages, Axios_bill } from "../api/Axios";
+import * as API_ENDPOINTS from "../api/ApiEndpoints";
+import { useSelector } from "react-redux";
+import * as ToastMessages from "./ToastMessages";
+import Toast from "./Toast";
+
 const CARD_OPTIONS = {
 	iconStyle: 'solid',
 	style: {
@@ -23,45 +26,56 @@ const CARD_OPTIONS = {
 	},
 };
 export default function PaymentForm(props) {
-	const userid = useSelector((state) => state.UserReducer.userid);
-	const amount = props.amount * 100;
-	const p_id = props.id;
-	console.log(userid)
-	const [success, setSuccess] = useState('');
-	const stripe = useStripe();
-	const elements = useElements();
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const {error, paymentMethod} = await stripe.createPaymentMethod({
-			type: 'card',
-			card: elements.getElement(CardElement),
-		});
-		if (!error) {
-			try {
-				const {id} = paymentMethod;
-				Axios_payments.post(API_ENDPOINTS.PAYMENT, {
-					amount: amount,
-					id: id,
-				}).then((response) => {
-					console.log(response);
-					if (response.data == 'success') {
-						Axios_packages.post(API_ENDPOINTS.ACTIVATE_PACKAGE, {
-							user: userid,
-							id: p_id,
-						}).then((response_2) => {
-							console.log(response_2);
-						});
-						setSuccess(true);
-					}
-				});
-				//console.log(response)
-			} catch (error) {
-				console.log('Error', error);
-			}
-		} else {
-			console.log(error.message);
-		}
-	};
+//   const userid = useSelector((state) => state.UserReducer.userid);
+const userid = localStorage.getItem("user_id");
+const amount = props.amount * 100;
+  const p_id = props.id;
+  console.log(userid);
+  const [success, setSuccess] = useState("");
+  const stripe = useStripe();
+  const elements = useElements();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+    });
+    if (!error) {
+      try {
+        const { id } = paymentMethod;
+        Axios_payments.post(API_ENDPOINTS.PAYMENT, {
+          amount: amount,
+          id: id,
+        }).then((response) => {
+          // console.log(response);
+          if (response.data == "success") {
+            Axios_packages.post(API_ENDPOINTS.ACTIVATE_PACKAGE, {
+              user: userid,
+              id: p_id,
+            }).then((response_2) => {
+              //   console.log(response_2);
+              Axios_bill.post(API_ENDPOINTS.ADD_TO_BILL, {
+                user: userid,
+                amount: amount,
+                is_paid: 1,
+              }).then((response) => {
+                if (response.data == "success") {
+                  ToastMessages.success("Package added to bill");
+                }
+              });
+            });
+            setSuccess(true);
+          }
+        });
+        //console.log(response)
+      } catch (error) {
+        console.log("Error", error);
+      }
+    } else {
+      console.log(error.message);
+    }
+  };
+
 
 	return (
 		<>
