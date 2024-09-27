@@ -70,6 +70,7 @@ export default function CustomerPackages() {
       Axios_bill.post(API_ENDPOINTS.ADD_TO_BILL, {
         user: userid,
         amount: price,
+        is_paid:0,
       }).then((response) => {
 
         if (response.data == "success") {
