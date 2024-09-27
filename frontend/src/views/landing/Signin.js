@@ -80,58 +80,72 @@ export default function Signin() {
   };
   return (
     <div className="signInOuterContainer">
-      <h1 className="Title">SriTel Communications Service</h1>
-      <div className="loginPhone"></div>
-      <div className="signInInnerContainer">
-        <div className="formFields">
-          <div className="signinrow">
-            <input
-              className="signInInput"
-              type="text"
-              onChange={(event) => setEmail(event.target.value)}
-              value={email}
-              required
-            ></input>
-            <label className="signInPlaceholder">User name</label>
-          </div>
-          <div className="signinrow">
-            <input
-              className="signInInput"
-              type="password"
-              onChange={(event) => setPassword(event.target.value)}
-              value={password}
-              required
-            ></input>
-            <label className="signInPlaceholder">Password</label>
-          </div>
-          {IsDisabled ? (
-            <div className="submitButton">Sign In</div>
-          ) : (
-            <div className="submitButton" onClick={handleSubmit}>
-              Sign In
-            </div>
-          )}
+      <div
+        style={{
+          width:"50%",
+          height:"60%",
+          backgroundColor:"white",
+          display:"flex",
+          flexDirection:"column",
+          justifyContent:"center",
+          alignItems:"center",
+          borderRadius:"30px",
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              marginTop: "10px",
-              gap: "10px",
-              textDecoration: "none",
-            }}
-          >
-            <span className="notregisteredtext">Not registered?</span>
-            <span
-              className="signInText"
-              style={{ textDecoration: "underline", color: "white" }}
-              onClick={() => navigate("/signup")}
+        }}
+      >
+        <h1 className="Title">SriTel Communications Service</h1>
+        <div className="signInInnerContainer">
+          <div className="formFields">
+            <div className="signinrow">
+              <input
+                  className="signInInput"
+                  type="text"
+                  onChange={(event) => setEmail(event.target.value)}
+                  value={email}
+                  required
+              ></input>
+              <label className="signInPlaceholder">User name</label>
+            </div>
+            <div className="signinrow">
+              <input
+                  className="signInInput"
+                  type="password"
+                  onChange={(event) => setPassword(event.target.value)}
+                  value={password}
+                  required
+              ></input>
+              <label className="signInPlaceholder">Password</label>
+            </div>
+            {IsDisabled ? (
+                <div className="submitButton">Sign In</div>
+            ) : (
+                <div className="submitButton" onClick={handleSubmit}>
+                  Sign In
+                </div>
+            )}
+
+            <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginTop: "10px",
+                  gap: "10px",
+                  textDecoration: "none",
+                }}
             >
+              <span className="notregisteredtext">Not registered?</span>
+              <span
+                  className="signInText"
+                  style={{ textDecoration: "underline", color: "rgb(0, 66, 131)",fontFamily:"poppins-regular" }}
+                  onClick={() => navigate("/signup")}
+              >
               Sign up
             </span>
+            </div>
           </div>
         </div>
       </div>
+
       {/* <div className='aboutus' style={{width: '40%'}}>
 				<div className='Title' style={{width: '80%'}}>
 					About us
