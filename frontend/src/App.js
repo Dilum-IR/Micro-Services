@@ -50,6 +50,7 @@ function App() {
               ))
             ) : user == "Staff" ? (
               UserRoutes.staffRoutes.map((item) => (
+                console.log(item),
                 <Route
                   key={item.id}
                   path={item.path}

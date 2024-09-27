@@ -7,4 +7,5 @@ import AdminDashboard from '../views/admin/AdminDashboard';
 import StaffChat from '../views/Staff/StaffChat';
 import StaffCustomers from '../views/Staff/StaffCustomers';
 import StaffHome from '../views/Staff/StaffHome';
-export {CustomerDashboard, CustomerPackages, CustomerSupport, AdminDashboard, AdminStaff, AdminPackages,StaffChat,StaffCustomers};
+import StaffNotification from '../views/Staff/StaffNotification';
+export {CustomerDashboard, CustomerPackages, CustomerSupport, AdminDashboard, AdminStaff, AdminPackages,StaffChat,StaffCustomers,StaffNotification};

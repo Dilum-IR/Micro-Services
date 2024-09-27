@@ -16,12 +16,14 @@ export default function AdminPackages() {
 
 	let index = 0;
 
-	useEffect(() => {
-		Axios_user.get(API_ENDPOINTS.GET_CUSTOMERS_URL).then((response) => {
-			setUsers(response.data);
-			console.log(users)
-		});
-  	},[users]);
+	
+
+      useEffect(() => {
+        Axios_user.get(API_ENDPOINTS.GET_CUSTOMERS_URL).then((response) => {
+          setUsers(response.data);
+          console.log(response.data);
+        });
+      }, []); 
 
 	const handleSubmit = () => {
         Axios_user.post(API_ENDPOINTS.ADD_CUSTOMER_URL, {

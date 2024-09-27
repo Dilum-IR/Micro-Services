@@ -9,6 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PeopleIcon from "@mui/icons-material/People";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PersonIcon from "@mui/icons-material/Person";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import { useNavigate } from "react-router-dom";
 import ReceiptIcon from "@mui/icons-material/Receipt";
@@ -103,10 +104,18 @@ const ShowSidebar = (props) => {
       link: "logout",
       index: "3",
     },
+    {
+      id: 4,
+      icon: <NotificationsIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      label: "Notifications",
+      link: "notifications",
+      index: "4",
+    }
   ];
   //console.log(restaurant[0].icon.props.sx.fontSize)
   const navigateTo = (page, index) => {
     setActive(index);
+    console.log("page is : "+page);
     if (page == "logout") {
       setActive(1);
       localStorage.clear("type");
