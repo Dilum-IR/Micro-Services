@@ -1,190 +1,111 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../css/signin.css";
 import Toast from "../../componets/Toast";
 import * as ToastMessages from "../../componets/ToastMessages";
 import { Axios_user } from "../../api/Axios";
 import * as API_ENDPOINTS from "../../api/ApiEndpoints";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SetUserAction, SetUserId } from "../../actions/UserActions";
-import Typewriter from "typewriter-effect";
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:5001");
+
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [IsDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const showToast = (data) => {
-    // console.log("showToast :" + data);
-
-    if (data.type == "success") {
+    if (data.type === "success") {
       ToastMessages.success(data.message);
       ToastMessages.info("Redirecting to OTP verification");
       localStorage.setItem("otpmail", email);
       setIsDisabled(true);
 
-      // setEmail('');
-      // setPassword('');
-      // // resetFormData();
-      // setIsDisabled(true);
-
-      setTimeout(function () {
+      setTimeout(() => {
         navigate("/otp");
       }, 1000);
-    } else if (data.type == "error") {
-      ToastMessages.error(data.message);
-    } else if (data.type == "warning") {
-      localStorage.setItem("otpmail", email);
-      ToastMessages.warning(data.message);
-      ToastMessages.info("Redirecting to OTP verification");
-      setTimeout(function () {
-        navigate("/otp");
-      }, 1000);
+    } else {
+      ToastMessages[data.type](data.message);
     }
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      ToastMessages.error("Please fill in all required fields");
+      return;
+    }
+
     try {
-      if (email == "" || password == "") {
-        ToastMessages.error("Please fill required fields");
-        return;
-      }
+      const response = await Axios_user.post(API_ENDPOINTS.SIGNIN_URL, {
+        email,
+        password,
+      });
 
-      e.preventDefault();
-      Axios_user.post(API_ENDPOINTS.SIGNIN_URL, {
-        email: email,
-        password: password,
-      }).then((response) => {
-        if (response.data.type == "success") {
-          // console.log(response.data.user);
-
-          if (response.data.user) {
-            // console.log(response.data.user);
-
-            dispatch(SetUserAction(response.data.user));
-            dispatch(SetUserId(response.data.id));
-            localStorage.setItem("user_id", response.data.id);
-            navigate("/home");
-          } else {
-            showToast(response.data);
-          }
+      if (response.data.type === "success") {
+        if (response.data.user) {
+          dispatch(SetUserAction(response.data.user));
+          dispatch(SetUserId(response.data.id));
+          localStorage.setItem("user_id", response.data.id);
+          navigate("/home");
         } else {
           showToast(response.data);
         }
-      });
-    } catch (e) {
-      console.log("e.error");
+      } else {
+        showToast(response.data);
+      }
+    } catch (error) {
+      console.error("Error during sign in:", error);
     }
   };
+
   return (
     <div className="signInOuterContainer">
-      <div
-        style={{
-          width:"50%",
-          height:"60%",
-          backgroundColor:"white",
-          display:"flex",
-          flexDirection:"column",
-          justifyContent:"center",
-          alignItems:"center",
-          borderRadius:"30px",
-
-        }}
-      >
-        <h1 className="Title">SriTel Communications Service</h1>
+      <div className="signInCard">
+        <h1 className="title">SriTel Communications Service</h1>
         <div className="signInInnerContainer">
-          <div className="formFields">
-            <div className="signinrow">
+          <form className="formFields" onSubmit={handleSubmit}>
+            <div className="signinRow">
               <input
-                  className="signInInput"
-                  type="text"
-                  onChange={(event) => setEmail(event.target.value)}
-                  value={email}
-                  required
-              ></input>
-              <label className="signInPlaceholder">User name</label>
+                className="signInInput"
+                type="text"
+                placeholder="Username"
+                onChange={(event) => setEmail(event.target.value)}
+                value={email}
+                required
+              />
             </div>
-            <div className="signinrow">
+            <div className="signinRow">
               <input
-                  className="signInInput"
-                  type="password"
-                  onChange={(event) => setPassword(event.target.value)}
-                  value={password}
-                  required
-              ></input>
-              <label className="signInPlaceholder">Password</label>
+                className="signInInput"
+                type="password"
+                placeholder="Password"
+                onChange={(event) => setPassword(event.target.value)}
+                value={password}
+                required
+              />
             </div>
-            {IsDisabled ? (
-                <div className="submitButton">Sign In</div>
-            ) : (
-                <div className="submitButton" onClick={handleSubmit}>
-                  Sign In
-                </div>
-            )}
-
-            <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "10px",
-                  gap: "10px",
-                  textDecoration: "none",
-                }}
+            <button
+              type="submit"
+              className={`submitButton ${isDisabled ? "disabled" : ""}`}
+              disabled={isDisabled}
             >
-              <span className="notregisteredtext">Not registered?</span>
+              Sign In
+            </button>
+
+            <div className="signUpText">
+              <span>Not registered?</span>
               <span
-                  className="signInText"
-                  style={{ textDecoration: "underline", color: "rgb(0, 66, 131)",fontFamily:"poppins-regular" }}
-                  onClick={() => navigate("/signup")}
+                className="signUpLink"
+                onClick={() => navigate("/signup")}
               >
-              Sign up
-            </span>
+                Sign up
+              </span>
             </div>
-          </div>
+          </form>
         </div>
       </div>
-
-      {/* <div className='aboutus' style={{width: '40%'}}>
-				<div className='Title' style={{width: '80%'}}>
-					About us
-				</div>
-				<div className='content'>
-					<Typewriter
-						onInit={(typewriter) => {
-							typewriter.typeString('GeeksForGeeks').pauseFor(1000).deleteAll().typeString('Welcomes You').start();
-						}}
-					/>
-				</div>
-			</div> */}
-
-      {/* <div className='signInInnerContainer'>
-				<div className='formFields'>
-					<div className='signinrow'>
-						<input className='signInInput' type='text' onChange={(event) => setEmail(event.target.value)} value={email} required></input>
-						<label className='signInPlaceholder'>User name*</label>
-					</div>
-					<div className='signinrow'>
-						<input className='signInInput' type='password' onChange={(event) => setPassword(event.target.value)} value={password} required></input>
-						<label className='signInPlaceholder'>Password*</label>
-					</div>
-					{IsDisabled ? (
-						<div className='submitButton'>Sign In</div>
-					) : (
-						<div className='submitButton' onClick={handleSubmit}>
-							Sign In
-						</div>
-					)}
-
-					<div style={{display: 'flex', flexDirection: 'row'}}>
-						<span>Not registered?</span>
-						<span className='signInText' style={{textDecoration: 'underline', color: 'dodgerblue'}} onClick={() => navigate('/signup')}>
-							Sign up
-						</span>
-					</div>
-				</div>
-			</div> */}
       <Toast duration={3000} />
     </div>
   );
