@@ -81,13 +81,6 @@ const ShowSidebar = (props) => {
       index: "2",
     },
     {
-      id: 4,
-      icon: <NotificationsIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
-      label: "Notifications",
-      link: "notifications",
-      index: "4",
-    },
-    {
       id: 3,
       icon: <LogoutIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
       label: "Logout",
@@ -111,13 +104,6 @@ const ShowSidebar = (props) => {
       label: "Support",
       link: "assist",
       index: "2",
-    },
-    {
-      id: 4,
-      icon: <NotificationsIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
-      label: "Notifications",
-      link: "notifications",
-      index: "4",
     },
     {
       id: 3,

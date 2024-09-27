@@ -7,14 +7,11 @@ export const customerRoutes = [
 	{id: 4, path: '/notifications', element: <UserViews.Notification />},
 ];
 export const adminRoutes = [
-	// {id: 1, path: '/home', element: <UserViews.AdminDashboard />},
 	{id: 1, path: '/home', element: <UserViews.AdminPackages />},
 	{id: 2, path: '/staff', element: <UserViews.AdminStaff />},
-	{id: 4, path: '/notifications', element: <UserViews.Notification />},
 ];
 export const staffRoutes = [
 	{id: 1, path: '/home', element: <UserViews.StaffCustomers />},
 	// {id: 2, path: '/packages', element: <UserViews.AdminPackages />},
 	{id: 2, path: '/assist', element: <UserViews.StaffChat/ >},
-	{id: 4, path: '/notifications', element: <UserViews.Notification />},
 ];
