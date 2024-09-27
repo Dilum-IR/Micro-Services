@@ -5,7 +5,7 @@ const mysql = require("mysql2");
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "Dilu123",
+  password: "",
   database: "sritel_user",
 });
 async function INSERT(table, columns, values) {
