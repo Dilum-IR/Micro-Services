@@ -74,16 +74,16 @@ export default function PaymentForm(props) {
 					</fieldset>
 					<div style={
 						{
-							width: '80%',
-							height: '120%',
+							width: '55%',
+							height: '80%',
 							paddingLeft: '45%',
 							borderRadius:'10px'
 						}
 					}>
 						<button
 							style={{
-								width: '15%',
-								height: '40%',
+								width: '20%',
+								height: '50%',
 								backgroundColor: '#009879',
 								outline: '3px solid white',
 								color: 'white',

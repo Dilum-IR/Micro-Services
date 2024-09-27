@@ -156,12 +156,13 @@ export default function Signup() {
               flexDirection: "row",
               marginTop: "10px",
               gap: "10px",
+              marginBottom:"10px"
             }}
           >
-            <span>Already registered?</span>
+            <span className="sinUpText" style={{color:"rgb(0, 66, 131)",fontFamily:"poppins-regular"}}>Already registered?</span>
             <span
-              className="signInText"
-              style={{ textDecoration: "underline", color: "dodgerblue" }}
+              className="signInText2"
+              style={{ textDecoration: "underline", color: "rgb(0, 66, 131)" }}
               onClick={() => navigate("/")}
             >
               Sign in

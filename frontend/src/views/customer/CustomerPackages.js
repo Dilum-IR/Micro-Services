@@ -83,6 +83,7 @@ export default function CustomerPackages() {
     width: 400,
     bgcolor: "background.paper",
     boxShadow: 24,
+    borderRadius:"30px"
   };
 
   const openModal = (id, price) => {
@@ -205,6 +206,7 @@ export default function CustomerPackages() {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
+                borderRadius:"30px"
               }}
             >
               <div className="processingtext"
