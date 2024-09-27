@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import "../css/Sidebar.css";
-
 import FourGMobiledataIcon from "@mui/icons-material/FourGMobiledata";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -10,10 +9,16 @@ import PeopleIcon from "@mui/icons-material/People";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
 import { useNavigate } from "react-router-dom";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import telImage from "../assets/images/telco.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSimCard } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+
 const ShowSidebar = (props) => {
   const navigate = useNavigate();
   var user = localStorage.getItem("type");
@@ -30,28 +35,28 @@ const ShowSidebar = (props) => {
   const customer = [
     {
       id: 1,
-      icon: <FourGMobiledataIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faSimCard} sx={{width: "90px" ,fill: "#FFD43B"}} />,
       label: "Packages",
       link: "home",
       index: "1",
     },
     {
       id: 2,
-      icon: <SupportAgentIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faComment} sx={{width: "90px" ,fill: "#FFD43B"}}  />,
       label: "Support",
       link: "support",
       index: "2",
     },
     {
       id: 1,
-      icon: <ReceiptIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faFileInvoiceDollar}  sx={{width: "90px" ,fill: "#FFD43B"}}  />,
       label: "Bill",
       link: "bill",
       index: "1",
     },
     {
       id: 3,
-      icon: <LogoutIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faArrowRightFromBracket} sx = {{width: "90px" ,fill: "#FFD43B"}}/>,
       label: "Logout",
       link: "logout",
       index: "3",
@@ -75,7 +80,7 @@ const ShowSidebar = (props) => {
     },
     {
       id: 3,
-      icon: <LogoutIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faArrowRightFromBracket} sx = {{width: "90px" ,fill: "#FFD43B"}}/>,
       label: "Logout",
       link: "logout",
       index: "3",
@@ -85,21 +90,21 @@ const ShowSidebar = (props) => {
     // {id: 1, icon: <HomeIcon sx={{fontSize: 40, fill: '#6F767F'}} />, label: 'Home', link: 'home', index: '1'},
     {
       id: 1,
-      icon: <PersonIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faUser} sx = {{width: "90px" ,fill: "#FFD43B"}}/>,
       label: "Customers",
       link: "home",
       index: "1",
     },
     {
       id: 2,
-      icon: <SupportAgentIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faComment} sx={{width: "90px" ,fill: "#FFD43B"}}  />,
       label: "Support",
       link: "assist",
       index: "2",
     },
     {
       id: 3,
-      icon: <LogoutIcon sx={{ fontSize: 40, fill: "#6F767F" }} />,
+      icon: <FontAwesomeIcon icon={faArrowRightFromBracket} sx = {{width: "90px" ,fill: "#FFD43B"}}/>,
       label: "Logout",
       link: "logout",
       index: "3",
@@ -170,7 +175,7 @@ const ShowSidebar = (props) => {
         </div>
       </div>
     );
-  } else if (props.type == "Admin") {
+  } else if (props.type === "Admin") {
     return (
       <div
         className={`sidebar ${expanded ? "expanded" : "collapsed"}`}
@@ -214,7 +219,7 @@ const ShowSidebar = (props) => {
         </div>
       </div>
     );
-  } else if (props.type == "Staff") {
+  } else if (props.type === "Staff") {
     return (
       <div
         className={`sidebar ${expanded ? "expanded" : "collapsed"}`}

@@ -26,13 +26,13 @@ function App() {
       <div className="sidebar">
         <Sidebar type={user} />
       </div>
-      <div className="container" style={{ width: "95%" }}>
+      <div className="container" style={{ width: "100%" }}>
         <Routes>
           <Route path="/" element={<Signin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/otp" element={<Otp />}></Route>
           <Route element={<ProtectedRoutes isSignedIn={user} />}>
-            {user == "Customer" ? (
+            {user === "Customer" ? (
               UserRoutes.customerRoutes.map((item) => (
                 <Route
                   key={item.id}
@@ -40,7 +40,7 @@ function App() {
                   element={item.element}
                 ></Route>
               ))
-            ) : user == "Admin" ? (
+            ) : user === "Admin" ? (
               UserRoutes.adminRoutes.map((item) => (
                 <Route
                   key={item.id}
@@ -48,7 +48,7 @@ function App() {
                   element={item.element}
                 ></Route>
               ))
-            ) : user == "Staff" ? (
+            ) : user === "Staff" ? (
               UserRoutes.staffRoutes.map((item) => (
                 console.log(item),
                 <Route

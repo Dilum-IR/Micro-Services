@@ -1,8 +1,8 @@
 .sidebar {
 	padding: 10px;
 	height: 100%;
-	background-color: #12213d;
-	color: black;
+	background-color: #002748;
+	color: white;
 	transition: width 0.3s ease;
 	position: relative;
 	z-index: 1;

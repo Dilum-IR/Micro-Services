@@ -122,7 +122,7 @@ export default function CustomerPackages() {
         <div
           className="adminPackagesBottomRow"
           style={{
-            width: "90%",
+            width: "93%",
             height: "60%",
             display: "flex",
             justifyContent: "center",
@@ -134,14 +134,14 @@ export default function CustomerPackages() {
           <table className="admin-styled-table">
             <thead>
               <tr style={{ padding: "20px" }}>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Data limit</th>
-                <th>Voice limit</th>
-                <th>SMS limit</th>
-                <th>Price</th>
-                <th>State</th>
-                <th>Options</th>
+                <th style={{ width: "10%" }}>Name</th>
+                <th style={{ width: "20%" }}>Description</th>
+                <th style={{ width: "10%" }}>Data limit</th>
+                <th style={{ width: "10%" }}>Voice limit</th>
+                <th style={{ width: "10%" }}>SMS limit</th>
+                <th style={{ width: "10%" }}>Price</th>
+                <th style={{ width: "12%" }}>State</th>
+                <th style={{ width: "18%" }}>Options</th>
               </tr>
             </thead>
             <tbody>
@@ -149,13 +149,13 @@ export default function CustomerPackages() {
                 packages &&
                 packages.map((item) => (
                   <tr key={item.package_id}>
-                    <td>{item.name}</td>
-                    <td>{item.description}</td>
-                    <td>{item.data_limit ? item.data_limit : "-"}</td>
-                    <td>{item.voice_limit ? item.voice_limit : "-"}</td>
-                    <td>{item.sms_limit ? item.sms_limit : "-"}</td>
-                    <td>{item.price}</td>
-                    <td>
+                    <td style={{ width: "10%" }}>{item.name}</td>
+                    <td style={{ width: "20%" }}>{item.description}</td>
+                    <td style={{ width: "10%" }}>{item.data_limit ? item.data_limit : "-"}</td>
+                    <td style={{ width: "10%" }}>{item.voice_limit ? item.voice_limit : "-"}</td>
+                    <td style={{ width: "10%" }}>{item.sms_limit ? item.sms_limit : "-"}</td>
+                    <td style={{ width: "10%" }}>{item.price}</td>
+                    <td style={{ width: "12%"}}>
                       <div
                         onClick={() => openModal(item.package_id, item.price)}
                         className="packageBuyButton"
@@ -163,7 +163,7 @@ export default function CustomerPackages() {
                         Activate
                       </div>
                     </td>
-                    <td>
+                    <td style={{ width: "18%" }}>
                       <div
                         onClick={() => addToBill(item.package_id, item.price)}
                         className="packageBuyButton"
