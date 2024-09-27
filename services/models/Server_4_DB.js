@@ -6,7 +6,7 @@ const pool = mysql.createPool({
 	// Adjust this value based on your requirements
 	host: 'localhost',
 	user: 'root',
-	password: 'Dilu123',
+	password: '',
 	database: 'sritel_payments',
 });
 async function INSERT(table, columns, values) {
