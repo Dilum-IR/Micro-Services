@@ -20,6 +20,9 @@ router.post("/addtobill", (req, res) => {
 
   const formattedDate = `${year}-${month}-${day}`;
 
+  console.log("User id check "+user);
+  console.log("package price cjeck "+amount);
+
   QUERY(
     "INSERT INTO bill_table(user_id,amount,is_payed,issue_date) VALUES('" +
       user +

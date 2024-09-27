@@ -7,23 +7,23 @@ import * as ToastMessages from "./ToastMessages";
 import Toast from "./Toast";
 
 const CARD_OPTIONS = {
-  iconStyle: "solid",
-  style: {
-    base: {
-      iconColor: "#c4f0ff",
-      color: "#fff",
-      fontWeight: 500,
-      fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-      fontSize: "18px",
-      fontSmoothing: "antialiased",
-      ":-webkit-autofill": { color: "black" },
-      "::placeholder": { color: "white" },
-    },
-    invalid: {
-      iconColor: "#ffc7ee",
-      color: "#ffc7ee",
-    },
-  },
+	iconStyle: 'solid',
+	style: {
+		base: {
+			iconColor: '#e6e9ec',
+			color: '#deded5',
+			fontWeight: 500,
+			fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+			fontSize: '16px',
+			fontSmoothing: 'antialiased',
+			':-webkit-autofill': {color: '#4b4105'},
+			'::placeholder': {color: '#e6e9ec'},
+		},
+		invalid: {
+			iconColor: '#ffc7ee',
+			color: '#ffc7ee',
+		},
+	},
 };
 export default function PaymentForm(props) {
 //   const userid = useSelector((state) => state.UserReducer.userid);
@@ -76,32 +76,48 @@ const amount = props.amount * 100;
     }
   };
 
-  return (
-    <>
-      {!success ? (
-        <form onSubmit={handleSubmit}>
-          <fieldset className="FormGroup">
-            <div className="FormRow">
-              <CardElement options={CARD_OPTIONS} />
-            </div>
-          </fieldset>
-          <button
-            style={{
-              width: "15%",
-              height: "40%",
-              backgroundColor: "dodgerblue",
-              outline: "3px solid white",
-              color: "white",
-            }}
-          >
-            Pay
-          </button>
-        </form>
-      ) : (
-        <div>
-          <h2 style={{ color: "#00CF00" }}>Payment success</h2>
-        </div>
-      )}
-    </>
-  );
+
+	return (
+		<>
+			{!success ? (
+				<form onSubmit={handleSubmit}>
+					<fieldset className='FormGroup'>
+						<div className='FormRow'>
+							<CardElement options={CARD_OPTIONS} />
+						</div>
+					</fieldset>
+					<div style={
+						{
+							width: '55%',
+							height: '80%',
+							paddingLeft: '45%',
+							borderRadius:'10px'
+						}
+					}>
+						<button
+							style={{
+								width: '20%',
+								height: '50%',
+								backgroundColor: '#009879',
+								outline: '3px solid white',
+								color: 'white',
+								fontSize:'1.3em',
+								fontWeight:'bold',
+								borderRadius:'10px',
+								borderColor:'#b5b9b6',
+								cursor:'pointer'
+							}}
+						>
+							Pay
+						</button>
+					</div>
+
+				</form>
+			) : (
+				<div>
+					<h2>Payment success</h2>
+				</div>
+			)}
+		</>
+	);
 }

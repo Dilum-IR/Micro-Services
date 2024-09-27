@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../css/agentCustomer/support.css';
 
 function CustomerSupport() {
+
   const [messages, setMessages] = useState([
     'Hello!',
     'Hi there!',
