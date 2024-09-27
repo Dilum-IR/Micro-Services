@@ -23,4 +23,3 @@ io.on('connection', (socket) => {
 server.listen(5004, () => {
 	console.log(`Server_4 listening on port ${5004}`);
 });
-//INSERT('user', '(user_name,password)', "('dian','asd')");

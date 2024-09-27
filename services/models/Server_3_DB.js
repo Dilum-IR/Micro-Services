@@ -1,12 +1,9 @@
-const mysql = require('mysql');
-// const {INSERT, UPDATE, SELECT, DELETE} = require('./queries');
-// Create a connection pool to the MySQL database
-// INSERT('asdsa');
+const mysql = require('mysql2');
 const pool = mysql.createPool({
 	// Adjust this value based on your requirements
 	host: 'localhost',
 	user: 'root',
-	password: '',
+	password: 'Dilu123',
 	database: 'sritel_bill',
 });
 async function INSERT(table, columns, values) {
@@ -31,13 +28,6 @@ async function INSERT(table, columns, values) {
 		});
 	});
 }
-// const INSERT = async function (table, columns, values) {
-// 	pool.query('INSERT INTO ' + table + ' ' + columns + ' VALUES ' + values, function (err, result, fields) {
-// 		if (err) throw err;
-// 		return JSON.parse(JSON.stringify(result));
-// 		//console.log(JSON.parse(JSON.stringify(result)));
-// 	});
-// };
 const UPDATE = function (data) {
 	console.log(data);
 };
@@ -94,6 +84,7 @@ async function QUERY(query) {
 			connection.query(query, (err, result, fields) => {
 				connection.release();
 				if (err) {
+					console.log(err);
 					resolve('error');
 				} else {
 					resolve(JSON.parse(JSON.stringify(result)));

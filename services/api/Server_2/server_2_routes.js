@@ -43,19 +43,6 @@ router.post("/addpackage", (req, res) => {
 
 
 router.get("/getallpackages", (req, res) => {
-
-
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-  console.log("zfzfzfzdfdfzd");
-
   QUERY("SELECT * FROM package").then((response) => {
     res.send(response);
   });
