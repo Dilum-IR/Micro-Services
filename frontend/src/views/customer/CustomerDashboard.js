@@ -7,7 +7,7 @@ import * as API_ENDPOINTS from '../../api/ApiEndpoints';
 import StripeCard from '../../componets/StripeCard';
 import {useSelector} from 'react-redux';
 export default function CustomerDashboard() {
-	const userid = useSelector((state) => state.UserReducer.userid);
+	const userid = localStorage.getItem("user_id");
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [checked, setChecked] = useState('All');
 	const [packages, setPackages] = useState('');
@@ -27,32 +27,24 @@ export default function CustomerDashboard() {
 			user: userid,
 		}).then((response) => {
 			console.log(response);
-			// async function constuct(){
-			// 	if(userid){
-			// 		const newArr = response.data.map((item)=> item.user_id==userid);
-			// 		console.log(newArr)
-			// 	}
-
-			// }
-			// constuct();
-			//console.log(response.data);
 			setPackages(response.data);
 			setAllPackages(response.data);
+			handleSubmit('Pending');
 		});
 	}, [userid]);
 	const activate = () => {
 		console.log('Hello');
 	};
 	const handleSubmit = (name) => {
-		if (name == 'Pending') {
-			const newArr = allPackages.filter((item) => item.payment_status == 0);
-			setPackages(newArr);
-		} else if (name == 'Paid') {
-			const newArr = allPackages.filter((item) => item.payment_status == 1);
-			setPackages(newArr);
-		} else if (name == 'Voice') {
-			const newArr = allPackages.filter((item) => item.type == 'voice');
-			setPackages(newArr);
+		if (allPackages.length>0) {
+		
+			if (name === 'Pending') {
+				const newArr = allPackages.filter((item) => item.is_payed == 0);
+				setPackages(newArr);
+			} else if (name === 'Paid') {
+				const newArr = allPackages.filter((item) => item.is_payed == 1);
+				setPackages(newArr);
+			}
 		}
 		//console.log(name);
 		setChecked(name);
@@ -121,14 +113,27 @@ export default function CustomerDashboard() {
 							</tr>
 						</thead>
 						<tbody>
-							{packages &&
+							{
+						 packages.length> 0 ? 	(
+							packages &&
 								packages.map((item) => (
-									<tr>
+									<tr key={item.bill_id}>
+
 										<td>{item.issue_date}</td>
 										<td>{item.amount}</td>
-										<td>{item.payment_status == 0 ? 'Not paid' : 'Paid'}</td>
+										<td>{item.is_payed === 0 ? 'Not paid' : 'Paid'}</td>
 									</tr>
-								))}
+								))
+							)
+								
+								: (
+									<tr style={{ fontSize: "18px", height: "370px" }}>
+									  <td></td>
+									  <td>No Billed Available</td>
+									  <td></td>
+									</tr>
+								  )
+								}
 						</tbody>
 					</table>
 				</div>
