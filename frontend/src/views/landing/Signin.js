@@ -63,7 +63,7 @@ export default function Signin() {
   return (
     <div className="signInOuterContainer">
       <div className="signInCard">
-        <h1 className="title">SriTel Communications Service</h1>
+        <h1 className="title">Sri Care Communications Service</h1>
         <div className="signInInnerContainer">
           <form className="formFields" onSubmit={handleSubmit}>
             <div className="signinRow">
