@@ -53,7 +53,7 @@ export default function Signup() {
   return (
     <div className="signupOuterContainer">
       <div className="signupCard">
-        <h1 className="title">SriTel Communications Service - Sign Up</h1>
+        <h1 className="title">Sri Care Communications Service - Sign Up</h1>
         <div className="signupInnerContainer">
           <form className="formFields" onSubmit={handleSubmit}>
             <div className="signupRow">
